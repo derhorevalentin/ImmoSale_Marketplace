@@ -1,17 +1,18 @@
 import React from "react";
-import { Button, Menu, Typography, Avatar } from "antd";
 import { Link } from "react-router-dom";
-import icon from "../images/test.png";
+
+import icon from "../images/immo.jpg";
 
 const Navbar = () => {
   return (
-    <div className="nav-container">
+    <div className="nav-link">
       <div className="logo-container">
-        <Avatar src={icon} size="large" />
-        <Typography.Title level={2} className="logo">
-          <Link to="/">ImmoSale</Link>
-        </Typography.Title>
+        <Link to="/">ImmoSale</Link>
+        <img src="../images/immo.jpg"></img>
       </div>
+
+      <Link to="/Home">Home</Link>
+      <Link to="/Articles">Articles</Link>
     </div>
   );
 };
