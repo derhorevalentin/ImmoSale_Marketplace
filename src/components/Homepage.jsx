@@ -1,35 +1,72 @@
-import React, { useState } from "react";
-import { Row, Col, Card } from "antd";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Card, Input } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
+import Article from "./Article";
 import { useGetArticlesQuery } from "../services/immoApi";
 
 const Homepage = () => {
   const { data: articlesList, isFetching } = useGetArticlesQuery();
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState(articlesList?.data?.articles);
+  const [allData, setAllData] = useState([]);
+  const [filteredData, setFilteredData] = useState(allData);
 
-  console.log(articlesList);
+  const handleSearch = (articlesList) => {
+    let value = articlesList.target.value.toLowerCase();
+    let result = [];
+    //console.log(value);
+    result = allData.filter((data) => {
+      return data.title.search(value) != -1;
+    });
+    setFilteredData(result);
+  };
+
+  useEffect(() => {
+    axios("http://127.0.0.1:3000")
+      .then((response) => {
+        //console.log(response.data);
+        setAllData(response.data);
+        setFilteredData(response.data);
+      })
+      .catch((error) => {
+        //console.log("Error");
+      });
+  }, []);
+
+  //console.log(filteredData);
 
   if (isFetching) return "Loading...";
 
   return (
     <>
-      <Row gutters={[32, 32]} className="articles-card-container">
-        {articlesList?.map((article) => (
-          <Col
-            xs={24}
-            sm={12}
-            lg={6}
-            className="articles-card"
-            key={articles.title}
-          >
-            <Card>
-              <p>Titre :{article.title}</p>
-              <p>Description :{article.description}</p>
-              <p>Prix : {article.price}</p>
-            </Card>
-          </Col>
-        ))}
+      <div className="search-articles">
+        <Input
+          placeholder="Search for an article "
+          onChange={(e) => handleSearch(e)}
+        />
+      </div>
+      <Row gutter={[16, 16]} className="articles-card-container">
+        {filteredData.map((value, index) => {
+          return (
+            <Col span={6} className="articles-card">
+              <Link
+                key={articlesList}
+                to={`/article/${value.id}`}
+                data-id={`${value.id}`}
+              >
+                <Card>
+                  <h1>Title</h1>
+                  <p>{value.title}</p>
+                  <h1>Description</h1>
+                  <p>{value.description}</p>
+                  <h1>Price</h1>
+                  <p>{value.price}</p>
+                </Card>
+              </Link>
+            </Col>
+          );
+        })}
       </Row>
     </>
   );

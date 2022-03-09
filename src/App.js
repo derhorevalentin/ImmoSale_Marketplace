@@ -1,8 +1,15 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import { Layout } from "antd";
+import { Layout, Typography, Space } from "antd";
 
-import { Navbar, Articles, Homepage, Sign_in, Sign_up } from "./components";
+import {
+  Navbar,
+  Articles,
+  Homepage,
+  Sign_in,
+  Sign_up,
+  Article,
+} from "./components";
 
 import "./App.css";
 import { ShrinkOutlined } from "@ant-design/icons";
@@ -20,9 +27,19 @@ const App = () => (
             <Route exact path="/articles" element={<Articles />} />
             <Route exact path="/sign_in" element={<Sign_in />} />
             <Route exact path="/sign_up" element={<Sign_up />} />
+            <Route exact path="/article/:articleId" element={<Article />} />
           </Routes>
         </div>
       </Layout>
+    </div>
+    <div className="footer">
+      <Typography.Title
+        level={5}
+        style={{ color: "white", textAlign: "center" }}
+      >
+        ImmoSale Marketplace ©<br />
+        All rights reserverd
+      </Typography.Title>
     </div>
   </div>
 );
