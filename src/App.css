@@ -140,3 +140,21 @@
   padding: 20px;
   align-items: center;
 }
+
+.form-signIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-signUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -34,7 +34,7 @@ const Homepage = () => {
       });
   }, []);
 
-  //console.log(filteredData);
+  console.log(filteredData);
 
   if (isFetching) return "Loading...";
 
