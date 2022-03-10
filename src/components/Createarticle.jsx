@@ -1,29 +1,25 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
-import { userError, userLogin } from "../app/stateUser/userAction";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Sign_in = () => {
-  const changeConnectedStatus = () => {
-    dispatch(userLogin());
-  };
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Createarticle() {
+  const auth = useSelector((state) => state);
 
-  const isConnected = useSelector((state) => state.connected);
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
 
-  const dispatch = useDispatch();
-
-  const registerRequest = () => {
-    fetch("http://127.0.0.1:3000/users/sign_in", {
+  const articleRequest = () => {
+    fetch("http://127.0.0.1:3000/articles", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: {
-          email: email,
-          password: password,
+        article: {
+          titre: title,
+          price: price,
+          description: description,
         },
       }),
     })
@@ -33,26 +29,16 @@ const Sign_in = () => {
           localStorage.setItem("token", res.headers.get("Authorization"));
           return res.json();
         } else {
-          changeConnectedStatus();
           throw new Error(res);
         }
       })
       .then((json) => console.dir(json))
       .catch((err) => console.error(err));
   };
-
-  const layout = {
-    labelCol: {
-      span: 8,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
-
+  console.log(auth);
   return (
     <div className="form-contairer">
-      <div className="form-signIn">
+      <div className="form-create">
         <Form
           name="basic"
           labelCol={{
@@ -66,17 +52,18 @@ const Sign_in = () => {
           }}
         >
           <div className="form-title">
-            <h1>Connexion</h1>
+            <h1>Créer Article</h1>
           </div>
+
           <Form.Item
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            label="Title"
+            type="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             rules={[
               {
                 required: true,
-                message: "Please input your email!",
+                message: "Please input your title!",
               },
             ]}
           >
@@ -84,18 +71,27 @@ const Sign_in = () => {
           </Form.Item>
 
           <Form.Item
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            label="Price"
+            type="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                message: "Please input your price!",
               },
             ]}
           >
-            <Input.Password />
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Description"
+            type="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          >
+            <Input.TextArea />
           </Form.Item>
 
           <Form.Item
@@ -107,15 +103,15 @@ const Sign_in = () => {
             <Button
               type="primary"
               htmlType="submit"
-              onClick={() => registerRequest()}
+              onClick={() => articleRequest()}
             >
-              Submit
+              Créer
             </Button>
           </Form.Item>
         </Form>
       </div>
     </div>
   );
-};
+}
 
-export default Sign_in;
+export default Createarticle;

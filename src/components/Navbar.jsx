@@ -17,6 +17,12 @@ const Navbar = () => {
         <Link to="/articles" style={{ marginRight: "20px", fontSize: "20px" }}>
           Mes Articles
         </Link>
+        <Link
+          to="/createarticle"
+          style={{ marginRight: "20px", fontSize: "20px" }}
+        >
+          Créer article
+        </Link>
         <Link to="/sign_in" style={{ marginRight: "20px" }}>
           <button className="ant-btn ant-btn-primary"> Sign in </button>
         </Link>

@@ -9,6 +9,7 @@ import {
   Sign_in,
   Sign_up,
   Article,
+  Createarticle,
 } from "./components";
 
 import "./App.css";
@@ -25,6 +26,7 @@ const App = () => (
           <Routes>
             <Route exact path="/" element={<Homepage />} />
             <Route exact path="/articles" element={<Articles />} />
+            <Route exact path="/createarticle" element={<Createarticle />} />
             <Route exact path="/sign_in" element={<Sign_in />} />
             <Route exact path="/sign_up" element={<Sign_up />} />
             <Route exact path="/article/:articleId" element={<Article />} />

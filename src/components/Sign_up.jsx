@@ -54,7 +54,7 @@ const Sign_up = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your Email!",
+                message: "Please input your email!",
               },
             ]}
           >

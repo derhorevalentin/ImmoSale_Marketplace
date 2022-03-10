@@ -158,3 +158,9 @@
   justify-content: center;
   align-items: center;
 }
+
+.form-create {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
